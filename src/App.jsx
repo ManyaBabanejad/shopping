@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import ProductList from './ProductList';
 import CartModal from './CartModal';
 import OrderForm from './OrderForm';
+import { Routes, Route, Link } from "react-router-dom";
+
+import Navbar from "./Navbar";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Login from "./pages/Login";
 import './App.css';
 
 const App = () => {
@@ -9,8 +15,9 @@ const App = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isOrderFormOpen, setIsOrderFormOpen] = useState(false);
 
+
     const addToCart = (product) => {
-        setCart((Cart) => [...Cart, product]);
+        setCart((cart) => [...cart, product]);
         setIsModalOpen(true);
     };
 
@@ -26,9 +33,21 @@ const App = () => {
 
     return (
         <div>
-            <h1>فروشگاه آنلاین</h1>
-            <ProductList addToCart={addToCart} />
+          <Navbar />
+          <h1>فروشگاه آنلاین</h1>
+             
+            <Navbar />
+
             {(isModalOpen || isOrderFormOpen) && <div className="overlay"></div>}
+
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/products" element={<ProductList addToCart={addToCart} />}/>
+              <Route path="/about" element={<About />} />
+              <Route path="/login" element={<Login />} />
+            </Routes>
+
+
 
             {isModalOpen && (
             <CartModal
